@@ -1,128 +1,104 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TARgv24_C;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace TARgv24_C_
+namespace TARgv24_C
 {
     internal class MainClass
     {
         public static void Main(string[] args)
         {
+            /// 2 Tund
+
+            // Создание объектов класса Isik
+            Isik isik1 = new Isik("Juku", 18, "12345678901", "Tallinn", Sugu.Meess);
+            isik1.PrindiInfo();
+
+            Isik isik2 = new Isik();
+            isik2.Nimi = "Mari";
+            isik2.Vanus = 35;
+            isik2.Sugu = Sugu.Naine;
+            isik2.Aadress = "Tartu";
+            isik2.Isikukood = "212116446";
+            isik2.PrindiInfo();
+
+            // Пример с массивами
+            Console.WriteLine("-----for + Massiv--------");
+
+            // Массив объектов Isik
+            Isik[] isikud = new Isik[10];
+            string[] nimid = new string[10] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
+
+            // Заполнение массива isikud
+            for (int i = 0; i < 10; i++)
+            {
+                isikud[i] = new Isik
+                {
+                    Nimi = "Isik" + i,
+                    Vanus = i + 10,
+                    Isikukood = "1234678901" + i,
+                    Aadress = "Tallinn" + i
+                };
+            }
+
+            // Вывод информации о каждом объекте из массива isikud
+            for (int i = 0; i < 10; i++)
+            {
+                isikud[i].PrindiInfo();
+            }
+
+            // Обратный цикл от 10 до 1
+            for (int j = 10; j > 0; j--)
+            {
+                Console.WriteLine(j);
+            }
+
+            // Цикл while (пример)
+            int k = 5;
+            while (k > 0)
+            {
+                Console.WriteLine($"k = {k}");
+                k--;
+            }
+
+            // Цикл с ConsoleKeyInfo
+            ConsoleKeyInfo key;
+            do
+            {
+                Console.WriteLine("Vajuta Backspace, et lõpetada...");
+                key = Console.ReadKey(true);
+            }
+            while (key.Key != ConsoleKey.Backspace);
+
+            // Изменение фона и текста
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine("Tere! Hea Päeva!");
+            Console.Clear();
 
-            //// 1.osa Andmetüüpd, If, Case, Random, Alamfuktsioonid
-            //int a = 0;
-            //string tekst = "Python";
-            //char taht = 'A';
-            //double arv = 5.544454564;
-            //float arv1 = 2;
+            // Завершение программы
+            Console.WriteLine("Programm lõpetatud. Vajuta suvalist klahvi...");
+            Console.ReadKey();
 
-            //Console.Write("Mis on sinu nimi? ");
-            //tekst = Console.ReadLine();
-            //Console.WriteLine("Tere!\n" + tekst);
-            //Console.WriteLine("Tere!\n{0}", tekst);
+            //// Task 3: soodus
+            //Console.Write("Sisesta toote hind enne soodustust: ");
+            //float s = float.Parse(Console.ReadLine());
+            //float soodust = FunktsioonideClass_1.soodus(s);
+            //Console.WriteLine($"Soodushind: {soodust}");
 
-            //if (tekst.ToLower() == "juku")
-            //{
-            //    Console.WriteLine("Lahme kinno!");
-            //    try
-            //    {
-            //        Console.WriteLine("{0}\nKui vana sa oled?", tekst);
-            //        int vanus = int.Parse(Console.ReadLine());
+            //// Task 4: temperatuur
+            //Console.Write("Kui palju temperatuur on õues: ");
+            //int t = int.Parse(Console.ReadLine());
+            //FunktsioonideClass_1.temp(t);
 
-            //        if (vanus <= 0 || vanus > 100)
-            //        {
-            //            Console.WriteLine("Viga!");
-            //        }
-            //        else if (vanus <= 6)
-            //        {
-            //        }
-            //        else if (vanus <= 15)
-            //        {
-            //            Console.WriteLine("Lastepilet");
-            //        }
-            //        else if (vanus <= 65)
-            //        {
-            //            Console.WriteLine("Standartpilet");
-            //        }
-            //        else if (vanus <= 100)
-            //        {
-            //            Console.WriteLine("Vanapilet");
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Olen hõivatud!");
-            //}
-
-            //Random rnd = new Random();
-
-            //Console.WriteLine("Arv 2: ");
-            //int arv2 = int.Parse(Console.ReadLine());
-
-            //arv1 = FunktsioonideClass.Kalkulaator(a, arv2);
-            //Console.WriteLine(arv1);
-
-            //a = rnd.Next();
-
-            ////Task nädal
-            //Console.WriteLine("Switch'i kasutamine");
-            //a = rnd.Next(1, 7);
-            //Console.WriteLine(a);
-
-            //tekst = FunktsioonideClass.switcKasuta(a);
-            //Console.WriteLine(tekst);
-
-            //Console.ReadKey();
-
-            //Task1  naber
-            //Console.Write("Sisesta esimene inimese nimi: ");
-            //string nimi1 =Console.ReadLine();
-            //Console.Write("Sisesta teine inimese nimi: ");
-            //string nimi2 = Console.ReadLine();
-            //string neigbor = FunktsioonideClass.küsiNaber(nimi1, nimi2);
-            //Console.WriteLine(neigbor);
-
-            ////Task 2 pikkus
-            //Console.Write("Sisesta toa pikkus (meetrites): ");
-            //string pikkus = Console.ReadLine();
-            //Console.Write("Sisesta toa laius (meetrites): ");
-            //string toa= Console.ReadLine();
-
-
-
-            //Task 3 soodus
-            Console.Write("Sisesta toote hind pärast 30% soodustust: ");
-            float s = float.Parse(Console.ReadLine());
-            float soodust = FunktsioonideClass.soodus(s);
-            Console.WriteLine(soodust);
-
-            //Task 4 temp
-            Console.Write("Kui palju temperatuur on õues");
-            int t =int.Parse(Console.ReadLine());
-            FunktsioonideClass.temp(t);
-
-            //Task 5 pikkus
-            Console.Write("Mis pikkus teil on ?");
-            int p = int.Parse(Console.ReadLine());
-            FunktsioonideClass.pikk
-                
-
+            //// Task 5: pikkus
+            //Console.Write("Mis pikkus teil on? ");
+            //int p = int.Parse(Console.ReadLine());
+            //FunktsioonideClass_1.pikk(p);
         }
-
     }
 }
